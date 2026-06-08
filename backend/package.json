@@ -8,7 +8,7 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec tsx server.ts --ext ts,json",
+    "start": "tsx server.ts",
     "migrate": "npx prisma migrate dev",
     "generate": "npx prisma generate"
   },
