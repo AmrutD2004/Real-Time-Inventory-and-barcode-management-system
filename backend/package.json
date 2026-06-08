@@ -7,10 +7,9 @@
   "type": "module",
   "main": "server.ts",
   "scripts": {
-    "build": "prisma generate",
+    "build" : "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec tsx server.ts --ext ts,json",
-    "start": "tsx server.ts",
+    "start": "nodemon --exec tsx server.ts --ext ts,json",
     "migrate": "npx prisma migrate dev",
     "generate": "npx prisma generate"
   },
