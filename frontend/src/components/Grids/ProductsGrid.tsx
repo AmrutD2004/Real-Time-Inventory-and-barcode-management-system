@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { BookText, Download, EllipsisVertical, Loader2, Pencil, Trash2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -13,6 +13,7 @@ import { ProductContext } from '@/context/ProductContext'
 import EditProductModal from '../modals/ProductsModals/EditProductModal'
 import DeleteProductModal from '../modals/ProductsModals/DeleteProductModal'
 import type { Product } from '@/types/product'
+import { Input } from '../ui/input'
 
 
 
@@ -53,29 +54,44 @@ const ProductsGrid = ({
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
 
   const [loading, setLoading] = useState(false)
-  const downloadBarcode = async (barcodeUrl : string, sku : string) => {
+  const downloadBarcode = async (barcodeUrl: string, sku: string) => {
     setLoading(true)
-  const response = await fetch(barcodeUrl);
-  const blob = await response.blob();
+    const response = await fetch(barcodeUrl);
+    const blob = await response.blob();
 
-  const url = window.URL.createObjectURL(blob);
+    const url = window.URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${sku}-barcode.png`;
-  a.click();
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${sku}-barcode.png`;
+    a.click();
 
-  window.URL.revokeObjectURL(url);
-  setLoading(false)
-};
+    window.URL.revokeObjectURL(url);
+    setLoading(false)
+  };
+  const [searchedProducts, setSearchedProducts] = useState<Product[]>([])
+  useEffect(() => {
+    setSearchedProducts(products)
+  }, [])
+  const handleSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const keyword = e.target.value.toLowerCase()
+    if (!keyword) {
+      setSearchedProducts(products)
+    }
+    const filterd = products.filter((f: any) => f?.name.toLowerCase().includes(keyword))
+    setSearchedProducts(filterd)
+  }
   return (
     <>
+      <div className='mb-5 w-full'>
+        <Input onChange={(e) => handleSearched(e)} className="w-full lg:placeholder:text-sm placeholder:text-xs px-3" placeholder="Search Category..." />
+      </div>
       <div className='flex flex-col gap-10'>
 
         {/* Products Grid */}
         <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3'>
 
-          {products.map((item: Product) => (
+          {searchedProducts.map((item: Product) => (
             <div
               key={item.id}
               className='w-full flex items-center justify-center border rounded-lg px-5 py-3 shadow'
@@ -111,7 +127,7 @@ const ProductsGrid = ({
                   <div className='w-full flex justify-end mt-auto h-full relative'>
                     <Button
                       onClick={() => {
-                      
+
                         setOpenMenu(openMenu === item.id ? null : item.id)
                       }}
                       variant='outline'
@@ -130,7 +146,7 @@ const ProductsGrid = ({
                           setSelectedProduct(item)
                           setOpenDeleteModal(true)
                         }} className='text-xs flex items-center gap-1 text-destructive font-medium'><Trash2 size={14} />Delete</button>
-                       <button onClick={() => downloadBarcode(item?.barcodeImage, item?.sku)} className='cursor-pointer text-xs text-accent-foreground flex items-center gap-1'>{loading ? <> <Loader2 />'Downloading</> : <><Download size={16}/>Download Barcode</>}</button>
+                        <button onClick={() => downloadBarcode(item?.barcodeImage, item?.sku)} className='cursor-pointer text-xs text-accent-foreground flex items-center gap-1'>{loading ? <> <Loader2 />'Downloading</> : <><Download size={16} />Download Barcode</>}</button>
                       </div>
                     ) : null}
                   </div>
