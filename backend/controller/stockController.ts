@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from "../prisma/lib/prisma.ts";
-import { emitNotification, emitWarehouseStockUpdated } from "../utils/realtime.ts";
+import { io } from "../server.ts";
 
 export const addStock = async (req: Request, res: Response) => {
     const { userId, userRole } = req.user;
@@ -179,7 +179,7 @@ export const editStock = async (req: Request, res: Response) => {
                 isRead: false
             }))
         })
-        emitNotification({
+        io.emit('new_notification', {
             type: 'STOCK_UPDATED',
             message: `${updatedStock.product.name} — ${difference > 0 ? 'IN' : 'OUT'} ${Math.abs(difference)} units`
         })
@@ -192,12 +192,12 @@ export const editStock = async (req: Request, res: Response) => {
                     isRead: false
                 }))
             })
-            emitNotification({
+            io.emit('new_notification', {
                 type: 'LOW_STOCK',
                 message: `Low stock: ${updatedStock.product.name} — ${updatedStock.quantity} units left`
             })
         }
-        emitWarehouseStockUpdated(current.warehouse_id, {
+        io.to(`warehouse_${current.warehouse_id}`).emit('stock_updated', {
             stockId: Number(id),
             productId: current.product_id,
             productName: current.product?.name,

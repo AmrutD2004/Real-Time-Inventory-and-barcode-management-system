@@ -1,20 +1,37 @@
+import express from 'express';
+import cors from 'cors';
+import { config } from 'dotenv';
 import { check } from './database/check.ts';
+import route from './routes/userRoutes.ts';
+import cookieParser from 'cookie-parser';
+import { userAuth } from './middleware/userMiddleware.ts';
+import categoryRoutes from './routes/categories.ts';
+import productsRoute from './routes/products.ts';
+import warehouseRoute from './routes/warehouse.ts';
+import stockRoutes from './routes/stocks.ts';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import app, { allowedOrigins } from './app.ts';
-import { setSocketServer } from './utils/realtime.ts';
+import notificationRoute from './routes/notification.ts';
+import dashboardRoute from './routes/dashboard.ts';
 
-const PORT = process.env.PORT || 8080;
+config();
+const PORT = process.env.PORT;
+const app = express();
 const httpServer = createServer(app)
 
+
+
+
+app.use(express.json())
+app.use(cookieParser())
+const allowedOrigins = ['http://localhost:5174', 'http://localhost:5173',]
 const io = new Server(httpServer, {
     cors : {
         origin : allowedOrigins,
         methods : ['GET', 'POST']
     }
 })
-setSocketServer(io);
-
+app.use(cors({origin : allowedOrigins, credentials : true}))
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id)
 
@@ -29,6 +46,17 @@ io.on('connection', (socket) => {
     })
 })
 
+export {io}
+
+
+//ALL ROUTES
+app.use('/api', route)
+app.use('/api', categoryRoutes)
+app.use('/api', productsRoute)
+app.use('/api', warehouseRoute)
+app.use('/api', stockRoutes)
+app.use('/api', notificationRoute)
+app.use('/api', dashboardRoute)
 check().then(()=>{
 httpServer.listen(PORT, ()=>{
     console.log(`Server is running on http://localhost:${PORT}`)
