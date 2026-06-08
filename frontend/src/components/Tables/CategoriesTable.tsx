@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table"
 import dayjs from 'dayjs'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "../ui/button"
 import { Database, EllipsisVertical, Pencil, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -26,10 +26,23 @@ const CategoriesTable = ({ categories }: props) => {
     const [openEditModal, setOpenEditModal] = useState<boolean>(false)
     const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
     const [selectedCategories, setSelectedCategories] = useState<null>(null)
+
+    const [searchedCategories, setSearchedCategories] = useState<String[]>([])
+    useEffect(()=>{
+        setSearchedCategories(categories)
+    }, [])
+    const handleSearched = (e : React.ChangeEvent<HTMLInputElement>)=>{
+        const keyword = e.target.value.toLowerCase()
+        if(!keyword){
+            setSearchedCategories(categories)
+        }
+        const filterd = categories.filter((f : any)=>f?.name.toLowerCase().includes(keyword))
+        setSearchedCategories(filterd)
+    }
     return (
         <div className="w-full" onClick={() => setOpenMenu(null)}>
             <div className="flex flex-col lg:flex-row items-center gap-2 w-full mb-5 ">
-                <Input className="w-full lg:placeholder:text-sm placeholder:text-xs px-3" placeholder="Search Category..."/>
+                <Input onChange={(e)=> handleSearched(e)} className="w-full lg:placeholder:text-sm placeholder:text-xs px-3" placeholder="Search Category..."/>
                 <div className="lg:ms-auto me-auto lg:w-50 flex items-center justify-end gap-1">
                 <Database size={16}/><span className="text-sm text-start font-medium tracking-tight text-accent-foreground">Total Categories : {categories.length}</span>
             </div>
@@ -46,7 +59,7 @@ const CategoriesTable = ({ categories }: props) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {categories.map((items: any, idx : number) => (
+                    {searchedCategories.map((items: any, idx : number) => (
                         <TableRow key={items.id}>
                             <TableCell className="font-medium text-center">{idx + 1}</TableCell>
                             <TableCell className="text-center">{items.name}</TableCell>

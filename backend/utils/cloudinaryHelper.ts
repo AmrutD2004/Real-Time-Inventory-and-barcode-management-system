@@ -18,7 +18,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async(req, file) => ({
     folder: 'Scanventory/products',
-    format: async (req : Request, file : any) => 'png', // supports promises as well
+    format: 'png', // supports promises as well
     public_id: file.originalname + '-' + Date.now(),
   }),
 });
