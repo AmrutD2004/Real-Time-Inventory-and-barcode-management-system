@@ -29,7 +29,7 @@ type Product = {
 
 type porps = {
   onClose: () => void
-  selectedProduct : Product 
+  selectedProduct : Product | any
 }
 const EditProductModal = ({ onClose, selectedProduct }: porps) => {
   const { categories, fetchProducts, skip, take } = useContext(ProductContext)
