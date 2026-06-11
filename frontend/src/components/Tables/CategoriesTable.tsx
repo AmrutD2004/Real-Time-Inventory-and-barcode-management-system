@@ -12,7 +12,6 @@ import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import { Button } from "../ui/button"
 import { Database, EllipsisVertical, Pencil, Trash2 } from "lucide-react"
-import { cn } from "@/lib/utils"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import EditCategory from "../modals/CategoryModals/EditCategory"
 import { Input } from "../ui/input"

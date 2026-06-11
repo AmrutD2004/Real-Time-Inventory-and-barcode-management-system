@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 import type { Warehous } from '@/types/warehouse';
 import { decodeId } from '@/utils/IdEncrypter';
 import { AlertCircle, BookText, ChevronLeft, Container, Loader2, MapPin, Pencil, Plus, Rows3, ShelvingUnit, Warehouse } from 'lucide-react';
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'sonner';
 
@@ -156,7 +156,7 @@ const WarehouseDetails = () => {
             ))}
           </div>
 
-          <div className='flex items-center justify-start gap-1 mt-8 gap-5'>
+          <div className='flex items-center justify-start mt-8 gap-5'>
             <div onClick={() => setInventory('stockInventory')} className={`relative w-40 text-center cursor-pointer`}>
               <span className={`absolute w-full py-0.5 bg-accent-foreground -bottom-2 left-0 rounded-full ${inventory === 'stockInventory' ? "opacity-100" : "opacity-0"}`}></span>
               <span>Stock inventory</span>

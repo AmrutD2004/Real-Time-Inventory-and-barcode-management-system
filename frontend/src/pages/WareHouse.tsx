@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { WareHouseContext } from '@/context/WarehouseInventoryContext'
 import { cn } from '@/lib/utils'
 import { Plus } from 'lucide-react'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 
 const WareHouse = () => {
     const [open, setOpen] = useState<boolean>(false)

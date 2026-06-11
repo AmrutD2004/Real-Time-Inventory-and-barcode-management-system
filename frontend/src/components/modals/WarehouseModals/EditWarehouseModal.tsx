@@ -1,8 +1,7 @@
 import type { Warehous } from '@/types/warehouse'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -12,10 +11,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Loader2 } from 'lucide-react'
-import { addWarehouse, editWarehouse } from '@/api/endpoint'
+import { editWarehouse } from '@/api/endpoint'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { WareHouseContext } from '@/context/WarehouseInventoryContext'
 
 type props = {
     warehouse : Warehous,
@@ -24,7 +22,7 @@ type props = {
 const EditWarehouseModal = ({warehouse, onClose} : props) => {
   
    const [loading, setLoading] = useState<boolean>(false)
-       const [formData, setFormData] = useState<Warehous | {}>({
+       const [formData, setFormData] = useState<Warehous | any>({
            warehouseName : warehouse?.warehouseName ? warehouse?.warehouseName : '',
            warehouseLocation :warehouse?.warehouseLocation ? warehouse?.warehouseLocation : '',
            warehouseRackInfo : warehouse?.warehouseRackInfo ? warehouse?.warehouseRackInfo : '',
@@ -33,7 +31,7 @@ const EditWarehouseModal = ({warehouse, onClose} : props) => {
        })
        const handleChange = (e : React.ChangeEvent <HTMLInputElement | HTMLSelectElement>)=>{
            const {name, value} = e.target;
-           setFormData(prev => ({...prev, [name] : value}))
+           setFormData((prev : any) => ({...prev, [name] : value}))
        }
        const handleSubmit = async(e: React.FormEvent <HTMLFormElement>)=>{
         e.preventDefault();

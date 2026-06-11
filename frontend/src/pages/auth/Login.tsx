@@ -1,4 +1,4 @@
-import { login, register } from "@/api/endpoint"
+import { login } from "@/api/endpoint"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { UserInfoContext } from "@/context/userInfoContext"
-import type { User } from "@/types/user.ts"
 import { Eye, EyeClosed, Loader2 } from "lucide-react"
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -21,7 +20,7 @@ import { toast } from "sonner"
 const Login = () => {
   const navigate = useNavigate()
   const {setIsLoggedIn} = useContext(UserInfoContext)
-  const [formData, setFormData] = useState<User>({
+  const [formData, setFormData] = useState<any>({
     email: '',
     password: ''
   })
@@ -30,7 +29,7 @@ const Login = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData((prev : any) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

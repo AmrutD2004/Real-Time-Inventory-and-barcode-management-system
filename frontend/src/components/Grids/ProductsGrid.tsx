@@ -48,8 +48,8 @@ const ProductsGrid = ({
       setSkip((prev: number) => prev + take)
     }
   }
-  const [openMenu, setOpenMenu] = useState<null>(null)
-  const [selectedProduct, setSelectedProduct] = useState<null>(null)
+  const [openMenu, setOpenMenu] = useState<null | number>(null)
+  const [selectedProduct, setSelectedProduct] = useState<null | Product>(null)
   const [openEditModal, setOpenEditModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Table,
     TableBody,
@@ -8,7 +8,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+
 import { getStockMovementHistory } from '@/api/endpoint'
 import { ArrowDown, ArrowUp, Minus, Plus } from 'lucide-react'
 import {formatDistanceToNow } from 'date-fns'

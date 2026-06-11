@@ -2,7 +2,7 @@ import type { Categories } from "./categories"
 import type { Warehous } from "./warehouse"
 
 export interface  Product  {
-  id: string | number
+  id: number
   name: string
   sku: string
   barcode: string

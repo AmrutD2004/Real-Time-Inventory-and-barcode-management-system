@@ -1,21 +1,18 @@
 import Layout from '@/components/layout/Layout'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { Barcode, Camera, CameraOff, ScanBarcode, Search, Video, Warehouse } from 'lucide-react'
+import { Barcode, Camera, CameraOff, Loader2, ScanBarcode, Search, Warehouse } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import { BrowserMultiFormatReader } from '@zxing/library'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
-import { getProductBySearch, getWarehouseStock } from '@/api/endpoint'
+import { getProductBySearch} from '@/api/endpoint'
 import type { Product } from '@/types/product'
 import { Badge } from '@/components/ui/badge'
 import dayjs from 'dayjs'
 import EditStock from '@/components/modals/StocksModal/EditStock'
-import { useNavigate } from 'react-router-dom'
-import { encodeId } from '@/utils/IdEncrypter'
 
 const ScanPage = () => {
-    const navigate = useNavigate()
     const [cameraOn, setCameraOn] = useState<boolean>(false)
     const videoRef = useRef<HTMLVideoElement>(null)
     const scannerRef = useRef<BrowserMultiFormatReader | null>(null)
@@ -81,10 +78,13 @@ const ScanPage = () => {
     const totalStock = searchData?.stock?.reduce((sum: number, s: any) => sum + s.quantity, 0)
     const [openEditModal, setEditModal] = useState(false)
     const [selectedStock, setSelectedStock] = useState(null)
-    const handleId = async(warehouseid : number)=>{
-            const id = await encodeId(warehouseid)
-            navigate(`/warehouse/${id}`)
-        }
+    if(loading){
+        return (
+            <div className='flex items-center justify-center min-h-screen'>
+                <h1 className='text-muted-foreground font-medium'><Loader2 size={18} className='animate-spin'/>Loading ...</h1>
+            </div>
+        )
+    }
     return (
         <>
             <Layout>

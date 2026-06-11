@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar"
 import darklogo from '@/images/Logo.png'
 import whitelogo from '@/images/WhiteLogo.png'
-import { ChartBarStacked, LayoutDashboard, LogOut, PackageSearch, ScanBarcode, Settings, Users, Warehouse } from 'lucide-react'
+import { ChartBarStacked, LayoutDashboard, LogOut, PackageSearch, ScanBarcode, Warehouse } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'

@@ -5,7 +5,7 @@ import InAppNavbar from './InAppNavbar'
 import { UserInfoContext } from '@/context/userInfoContext'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const {userInfo} = useContext(UserInfoContext)
+  const {userInfo} = useContext<any>(UserInfoContext)
   const role = userInfo?.role;
   return (
     <SidebarProvider>
