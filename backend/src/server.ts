@@ -23,7 +23,7 @@ const httpServer = createServer(app)
 
 app.use(express.json())
 app.use(cookieParser())
-const allowedOrigins = ['http://localhost:5174', 'http://localhost:5173',]
+const allowedOrigins = ['http://localhost:5174', 'http://localhost:5173', 'https://real-time-inventory-and-barcode-man-tau.vercel.app']
 const io = new Server(httpServer, {
     cors : {
         origin : allowedOrigins,
