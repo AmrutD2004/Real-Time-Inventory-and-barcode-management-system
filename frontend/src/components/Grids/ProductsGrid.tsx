@@ -72,7 +72,7 @@ const ProductsGrid = ({
   const [searchedProducts, setSearchedProducts] = useState<Product[]>([])
   useEffect(() => {
     setSearchedProducts(products)
-  }, [])
+  }, [products])
   const handleSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
     const keyword = e.target.value.toLowerCase()
     if (!keyword) {
