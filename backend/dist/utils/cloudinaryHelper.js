@@ -6,6 +6,9 @@ config();
 const api_key = process.env.CLOUDINARY_API_KEY;
 const api_secret = process.env.CLOUDINARY_SECRET_KEY;
 const cloud_name = process.env.CLOUDINARY_NAME;
+if (!api_key || !api_secret || !cloud_name) {
+    throw new Error("Cloudinary environment variables are missing");
+}
 cloudinary.config({
     cloud_name: cloud_name,
     api_key: api_key,

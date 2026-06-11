@@ -5,8 +5,8 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "nodemon dist/server.js"
+    "build": "prisma generate --schema src/prisma/schema.prisma && tsc",
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
