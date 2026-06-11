@@ -31,7 +31,7 @@ const AddStock = ({ warehouse, onClose, products,onStockAdded }: props) => {
     quantity: '',
     low_stock_threshold: '10'
   })
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev : any) => ({ ...prev, [name]: value }))
   }
@@ -82,7 +82,6 @@ const AddStock = ({ warehouse, onClose, products,onStockAdded }: props) => {
                   <Label htmlFor="email">Select product *</Label>
                   <select onChange={handleChange}
                     name="product_id"
-                    placeholder="Enter warehouse name"
                     required
                     className='bg-background px-5 py-1.5 rounded-lg border outline-none'
                   >
