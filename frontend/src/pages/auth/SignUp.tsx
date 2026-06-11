@@ -11,14 +11,13 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import type { User } from "@/types/user.ts"
 import { Eye, EyeClosed, Loader2 } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 
 const SignUp=()=> {
-  const [formData, setFormData] = useState<User>({
+  const [formData, setFormData] = useState<any>({
     email :'',
     password : ''
   })
@@ -27,7 +26,7 @@ const SignUp=()=> {
 
   const handleChange = (e : React.ChangeEvent <HTMLInputElement>)=>{
     const {name, value} = e.target;
-    setFormData(prev=>({...prev, [name]:value}))
+    setFormData((prev : any)=>({...prev, [name]:value}))
   }
 
   const handleSubmit = async(e : React.FormEvent <HTMLFormElement>)=>{

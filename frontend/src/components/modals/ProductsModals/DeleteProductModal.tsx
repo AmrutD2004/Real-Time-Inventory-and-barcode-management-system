@@ -1,9 +1,9 @@
-import { deleteCategory, deleteProduct } from '@/api/endpoint'
+import { deleteProduct } from '@/api/endpoint'
 import { Button } from '@/components/ui/button'
 import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { ProductContext } from '@/context/ProductContext'
 import { Loader2 } from 'lucide-react'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { toast } from 'sonner'
 
 type props = {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
 import { AlertTriangle, ArrowDownUp, Bell, BellOff, Box, Check } from 'lucide-react'
@@ -8,7 +8,7 @@ import { Badge } from '../ui/badge'
 import { formatDistanceToNow } from 'date-fns'
 import socket from '@/lib/socket'
 
-const Notification = () => {
+const NotificationComponent = () => {
     const [notification, setNotification] = useState<Notification[]>([])
     const [unreadCount, setUnreadCount] = useState<number>(0)
     const [open, setOpen] = useState(false)
@@ -25,7 +25,7 @@ const Notification = () => {
 
     useEffect(() => {
         if (!notification) return
-        socket.on('new_notification', (data) => {
+        socket.on('new_notification', () => {
             fetchNotifications()
         })
         return () => {
@@ -102,7 +102,7 @@ const Notification = () => {
                                         </Badge>
 
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm leading-relaxed break-words whitespace-normal font-medium">
+                                            <p className="text-sm leading-relaxed whitespace-normal font-medium">
                                                 {item.message}
                                             </p>
 
@@ -128,4 +128,4 @@ const Notification = () => {
     )
 }
 
-export default Notification
+export default NotificationComponent

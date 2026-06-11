@@ -1,15 +1,15 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { SidebarTrigger } from '../ui/sidebar'
 import { useTheme } from '../theme-provider'
 import { Button } from '../ui/button'
-import { Bell, Menu, Moon, Sun, UserIcon } from 'lucide-react'
+import { Menu, Moon, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { UserInfoContext } from '@/context/userInfoContext'
-import Notification from '../Notification/Notification'
+import NotificationComponent from '../Notification/Notification'
 
 const InAppNavbar = () => {
     const { theme, setTheme } = useTheme()
-    const { userInfo } = useContext(UserInfoContext)
+    const { userInfo }= useContext<any>(UserInfoContext)
     const [open, setOpen] = useState<boolean>(false)
     return (
         <div className='h-16 border-b min-w-svw fixed top-0 z-50 bg-sidebar'>
@@ -19,7 +19,7 @@ const InAppNavbar = () => {
                 </div>
                 <div className='flex items-center gap-3 fixed right-6'>
                     <div className='lg:flex md:flex items-center gap-1 hidden'>
-                        <Notification />
+                        <NotificationComponent />
                         <span className='text-xl scale-80 font-medium px-4 py-2.5 rounded-full border bg-muted-foreground/30 text-accent-foreground'>{userInfo?.email?.[0].toUpperCase()}</span>
                         <div className='flex items-start flex-col'>
                             <span className='text-sm text-accent-foreground text-start font-medium'>{

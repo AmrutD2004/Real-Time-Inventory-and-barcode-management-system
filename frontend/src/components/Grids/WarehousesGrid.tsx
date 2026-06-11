@@ -1,7 +1,6 @@
 import type { Warehous } from '@/types/warehouse'
-import React from 'react'
 import { Badge } from '../ui/badge'
-import { LocationEditIcon, Map, MapPin, Warehouse } from 'lucide-react'
+import { MapPin, Warehouse } from 'lucide-react'
 import { encodeId } from '@/utils/IdEncrypter'
 import { useNavigate } from 'react-router-dom'
 

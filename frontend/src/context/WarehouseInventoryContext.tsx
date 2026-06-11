@@ -1,4 +1,4 @@
-import { getAllWarehouse, getAllWarehouseStock, getStockMovementHistory, getStockMovementLast7days } from "@/api/endpoint";
+import { getAllWarehouse, getAllWarehouseStock, getStockMovementLast7days } from "@/api/endpoint";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "./userInfoContext";
 
@@ -56,7 +56,7 @@ export const StockContextProvider = ({children} : {children : React.ReactNode})=
     }, [])
     return (
         <StockContext.Provider value={{
-            fetchallWarehouseStock, allWarehouseStock, fetchMovementlast7daysHistory, movementlast7daysHistory
+            fetchallWarehouseStock, allWarehouseStock, fetchMovementlast7daysHistory, movementlast7daysHistory, loading
         }}>
             {children}
         </StockContext.Provider>

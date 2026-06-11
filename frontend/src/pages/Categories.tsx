@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ProductContext } from '@/context/ProductContext'
 import { cn } from '@/lib/utils'
 import { Plus } from 'lucide-react'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 
 const Categories = () => {
     const { categories } = useContext(ProductContext)

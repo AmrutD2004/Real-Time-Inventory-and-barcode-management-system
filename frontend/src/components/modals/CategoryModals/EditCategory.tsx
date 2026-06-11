@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
     CardFooter,
@@ -13,7 +12,7 @@ import { Label } from '../../ui/label'
 import { Input } from '../../ui/input'
 import { Textarea } from '../../ui/textarea'
 import { Loader2 } from 'lucide-react'
-import { addCategory, editCategory } from '@/api/endpoint'
+import { editCategory } from '@/api/endpoint'
 import { toast } from 'sonner'
 import { ProductContext } from '@/context/ProductContext'
 

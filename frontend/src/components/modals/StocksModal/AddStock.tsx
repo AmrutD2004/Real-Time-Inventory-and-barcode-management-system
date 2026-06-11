@@ -4,13 +4,13 @@ import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Loader2 } from 'lucide-react'
@@ -24,16 +24,16 @@ type props = {
   products: any
   onStockAdded : ()=>void
 }
-const AddStock = ({ warehouse, categories, onClose, products,onStockAdded }: props) => {
+const AddStock = ({ warehouse, onClose, products,onStockAdded }: props) => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [formData, setFormData] = useState<{}>({
+  const [formData, setFormData] = useState<any>({
     product_id: '',
     quantity: '',
     low_stock_threshold: '10'
   })
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData((prev : any) => ({ ...prev, [name]: value }))
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

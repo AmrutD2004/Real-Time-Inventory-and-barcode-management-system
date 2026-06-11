@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -11,19 +10,11 @@ import {
 import { Button } from '../../ui/button'
 import { Label } from '../../ui/label'
 import { Input } from '../../ui/input'
-import { Textarea } from '../../ui/textarea'
 import { Loader2 } from 'lucide-react'
-import { addCategory, addProduct } from '@/api/endpoint'
+import { addProduct } from '@/api/endpoint'
 import { toast } from 'sonner'
 import { ProductContext } from '@/context/ProductContext'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+
 import { cn } from '@/lib/utils'
 
 type porps = {
