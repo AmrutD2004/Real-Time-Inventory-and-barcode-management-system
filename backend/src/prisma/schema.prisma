@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum userRoles {
+  Admin
+  Manager
+  Operator
+  Viewer
+}
+
+model Users {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String
+  role userRoles 
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  stockmovement StockMovement[]
+  notification Notification[]
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  created_at DateTime @default(now())
+  product Products[]
+  updated_at DateTime @updatedAt
+}
+
+model Products {
+  id Int @id @default(autoincrement())
+  name String
+  sku String @unique //sku stands for (Stock-Keeping-Unit) which is a unique code to identify the product quickly. ex.,Nike sku = NK-12312
+  barcodeImage String 
+  barcodeNo String
+  price String
+  category_id Int 
+  category Category @relation(fields: [category_id], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  image_url String
+  stock Stock[]
+  stockmovement StockMovement[]
+  
+}
+
+enum Status  {
+  Active
+  Inactive
+}
+
+model Warehouses {
+  id Int @id @default(autoincrement())
+  warehouseName String
+  warehouseLocation String
+  warehouseRackInfo String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  warehouseStatus Status @default(Active)
+  warehouseCapacity Int? 
+  stock Stock[]
+  stockmovement StockMovement[]
+}
+
+model Stock{
+  id Int @id @default(autoincrement())
+  product_id Int 
+  product Products @relation(fields: [product_id], references: [id])
+  warehouse_id Int
+  warehouse Warehouses @relation(fields: [warehouse_id], references: [id])
+  quantity Int
+  low_stock_threshold Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([warehouse_id, product_id])
+}
+
+
+enum types {
+  IN
+  OUT
+  TRANSFER
+}
+model StockMovement {
+  id Int @id @default(autoincrement())
+  product_id Int
+  product Products @relation(fields: [product_id], references: [id])
+  warehouse_id Int
+  warehouse Warehouses @relation(fields: [warehouse_id], references: [id])
+  preformed_by Int
+  user Users @relation(fields: [preformed_by], references: [id])
+  type types 
+  note String?
+  quantity Int
+  created_at DateTime @default(now())
+}
+
+enum notiType {
+  LOW_STOCK
+  STOCK_UPDATED
+  TRANSFER
+}
+
+model Notification {
+  id Int @id @default(autoincrement())
+  message String
+  type notiType
+  user_id Int
+  user Users @relation(fields: [user_id], references: [id])
+  isRead Boolean @default(false)
+  created_at DateTime @default(now())
+}
