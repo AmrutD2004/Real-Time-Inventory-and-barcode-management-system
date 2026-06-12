@@ -13,13 +13,14 @@ import { WareHouseContextProvider } from './context/WarehouseInventoryContext'
 import WareHouse from './pages/WareHouse'
 import WarehouseDetails from './pages/WarehouseDetails'
 import ScanPage from './pages/ScanPage'
+import LandingPage from './pages/LandingPage'
 
 export function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<LandingPage />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
 
