@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
 import SignUp from './pages/auth/SignUp'
 import { Toaster } from './components/ui/sonner'
 
