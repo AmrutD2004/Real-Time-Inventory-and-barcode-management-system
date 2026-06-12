@@ -5,9 +5,9 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "prisma generate --schema src/prisma/schema.prisma && tsc",
+    "build": "tsc",
     "start": "node dist/server.js",
-    "generate" : "npx prisma generate"
+    "generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
