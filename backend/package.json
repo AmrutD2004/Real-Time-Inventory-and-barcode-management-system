@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "npm install --include=dev && tsc",
     "start": "node dist/server.js",
     "generate": "npx prisma generate"
   },
@@ -29,7 +29,8 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^3.1.14",
     "pg": "^8.21.0",
-    "socket.io": "^4.8.3"
+    "socket.io": "^4.8.3",
+    "@types/node": "^25.9.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
@@ -39,7 +40,6 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.1.0",
-    "@types/node": "^25.9.3",
     "@types/pg": "^8.20.0",
     "prisma": "^7.8.0",
     "ts-node": "^10.9.2",
