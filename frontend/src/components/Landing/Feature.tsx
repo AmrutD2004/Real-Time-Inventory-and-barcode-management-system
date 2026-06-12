@@ -45,7 +45,7 @@ const Feature = () => {
 
                 {/* Small Cards */}
                 <div className="border rounded-lg p-4 row-span-3">
-                    <img src={theme === 'dark' ? notiDark ? notiLight}/>
+                    <img src={theme === 'dark' ? notiDark : notiLight}/>
                 </div>
 
             </div>
