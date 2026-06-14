@@ -1,3 +1,4 @@
+import FAQs from '@/components/Landing/FAQs'
 import Feature from '@/components/Landing/Feature'
 import Hero from '@/components/Landing/Hero'
 import Navbar from '@/components/Landing/Navbar'
@@ -12,6 +13,9 @@ const LandingPage = () => {
         </div>
         <div id='feature'>
           <Feature />
+        </div>
+        <div id='faqs'>
+          <FAQs />
         </div>
     </div>
     </>
