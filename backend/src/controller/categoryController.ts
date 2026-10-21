@@ -61,7 +61,11 @@ export const getAllCategories = async(req :Request, res: Response)=>{
             message: `Access denied for ${role}`
         })
     }
-    const data = await prisma.category.findMany()
+    const data = await prisma.category.findMany({
+        where : {
+            
+        }
+    })
     return res.status(201).json({
         success : true,
        data : data
