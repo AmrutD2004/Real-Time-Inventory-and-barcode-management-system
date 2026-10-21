@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { prisma } from "../prisma/lib/prisma.js";
 import { io } from "../server.js";
+import { tr } from "date-fns/locale";
 
 export const addStock = async (req: Request, res: Response) => {
     const { userId, userRole } = req.user;
@@ -24,13 +25,39 @@ export const addStock = async (req: Request, res: Response) => {
             message: `Access denied for ${role}`
         })
     }
+    const isProductAlreadyInWareHouse = await prisma.stock.findUnique({
+        where : {
+            warehouse_id_product_id : {
+                product_id : Number(product_id),
+                warehouse_id : Number(warehouse_id)
+            }
+        },
+        include : {
+            product : {
+                select : {
+                    name : true
+                }
+            },
+            warehouse : {
+                select : {
+                    warehouseName : true
+                }
+            }
+        }
+    })
+    if(isProductAlreadyInWareHouse){
+        return res.status(403).json({
+            success : false,
+            message : `Product ${isProductAlreadyInWareHouse.product.name} is already exists in warehouse ${isProductAlreadyInWareHouse.warehouse.warehouseName}`
+        })
+    }
     try {
         const data = await prisma.stock.create({
             data: {
-                product_id: product_id,
-                warehouse_id: warehouse_id,
-                low_stock_threshold: low_stock_threshold,
-                quantity: quantity
+                product_id: Number(product_id),
+                warehouse_id: Number(warehouse_id),
+                low_stock_threshold: Number(low_stock_threshold),
+                quantity: Number(quantity)
             }
         })
         return res.status(201).json({
@@ -41,7 +68,7 @@ export const addStock = async (req: Request, res: Response) => {
         console.error(err)
         return res.status(500).json({
             success: false,
-            message: "Server error"
+            message: `Server error ${err}`
         })
     }
 
@@ -151,8 +178,8 @@ export const editStock = async (req: Request, res: Response) => {
             }),
             prisma.stockMovement.create({
                 data: {
-                    product_id: current.product_id,
-                    warehouse_id: current.warehouse_id,
+                    product_id: Number(current.product_id),
+                    warehouse_id: Number(current.warehouse_id),
                     preformed_by: Number(userId),
                     type: difference > 0 ? 'IN' : 'OUT',
                     quantity: Math.abs(difference),
